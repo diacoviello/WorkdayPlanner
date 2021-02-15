@@ -1,7 +1,7 @@
 var Today = moment().format("MMMM D, YYYY");
 $("#currentDay").text(Today);
 
-document.ready(function () {
+$(document).ready(function () {
   //check for button clicks inside an on click
   $(".saveBtn").on("click", function () {
     //grab my values for time and text
@@ -13,6 +13,8 @@ document.ready(function () {
 
   //write a function to update the hours in the time blocks
   //get current time use moment
+  var timeHours = moment().format("hh");
+  console.log(timeHours);
 
   //loop over our time blocks hint (look up .each)
 
@@ -21,45 +23,40 @@ document.ready(function () {
   //addClass
   //addClass("past")
 
+  var allHours = document.querySelectorAll(".row");
+  console.log(allHours);
+
   var hourCheck = function () {
     var currentHour = moment().hour();
-    for (var i = 9; i < 18; i++) {
-      var taskArea = $("#task-" + i);
-      if (currentHour > i) {
-        $(taskArea).addClass("past");
-      } else if (currentHour === i) {
-        $(taskArea).addClass("present");
+    for (var i = 0; i < allHours.length; i++) {
+      var taskArea = allHours[i].id;
+      var taskId = taskArea.split("-");
+      var digit = Number(taskId[1]);
+      console.log(digit);
+      if (currentHour > digit) {
+        $(".task").addClass("past");
+      } else if (currentHour === digit) {
+        $(".task").addClass("present");
       } else {
-        $(taskArea).addClass("future");
+        $(".task").addClass("future");
       }
     }
   };
 
-  //check to see if it is the current time
-  //else if
-  //removeClass
-  //addClass
-
-  //check to see if time is future
-  //else
-  //removeClass
-  //removeClass
-  //addClass
-
   //load any saved data from localStorage
-
-  $("#hour-9 .task").val(localStorage.getItem.length("hour-9"));
-  $("#hour-10 .task").val(localStorage.getItem.length("hour-10"));
-  $("#hour-11 .task").val(localStorage.getItem.length("hour-11"));
-  $("#hour-12 .task").val(localStorage.getItem.length("hour-12"));
-  $("#hour-1 .task").val(localStorage.getItem.length("hour-1"));
-  $("#hour-2 .task").val(localStorage.getItem.length("hour-2"));
-  $("#hour-3 .task").val(localStorage.getItem.length("hour-3"));
-  $("#hour-4 .task").val(localStorage.getItem.length("hour-4"));
-  $("#hour-5 .task").val(localStorage.getItem.length("hour-5"));
-
+  hourCheck();
   //display current day on page (using moment)
 
   // var currentTime = moment().format("MMMM Do, YYYY");
   // $("#currentDay").text(currentTime);
 });
+
+$("#hour-9 .task").val(localStorage.getItem("hour-9"));
+$("#hour-10 .task").val(localStorage.getItem("hour-10"));
+$("#hour-11 .task").val(localStorage.getItem("hour-11"));
+$("#hour-12 .task").val(localStorage.getItem("hour-12"));
+$("#hour-1 .task").val(localStorage.getItem("hour-1"));
+$("#hour-2 .task").val(localStorage.getItem("hour-2"));
+$("#hour-3 .task").val(localStorage.getItem("hour-3"));
+$("#hour-4 .task").val(localStorage.getItem("hour-4"));
+$("#hour-5 .task").val(localStorage.getItem("hour-5"));
